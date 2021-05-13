@@ -2,9 +2,11 @@
 
 A search service that can chain a set of rules upon different type of entities, and later be invoked by the target search identifier.
 
-Author:	
+Authors:	
 
 William Jingjie Feng:	<william.feng@vcstechnology.com>
+
+Ken Hornibrook:			<kenhornibrook@gmail.com>
 
 GitHub repository:
 <https://github.com/williamjingjiefeng/ChainableSearch>
@@ -21,8 +23,9 @@ It features:
         .Insert<Contact>(z => z.Id, z => z.Name);
 
 	Once you call service.Action() with a Id, we will loop through all searchers defined as above, if Id is found in Customer table, customer name 
-	will be returned, otherwise Friend table will be searched and upon successful matching, friend name will be retrieved. This flow will keep going 
-	until all searchers have been enumerated and if no Id is matched for all tables, we will eventually insert this new entity into Contact table.
+	will be returned, otherwise Friend table will be searched and upon successful matching, friend name will be retrieved, otherwise Colleage table
+    will be queried next. This flow will keep going until all searchers have been enumerated and if no Id is matched for them, we will eventually 
+    insert this new entity into Contact table.
 
 •	As you can see, all searchers and inserters are strongly typed with Lambda expression, elimination of \<object\> generic parameters has been endorsed.
 
@@ -37,7 +40,7 @@ Use Cases:
 
 •	Searching a variety of business entities with similar logic is common for line of business applications.
 
-•	It is imperative to store those searching behaviour as business rules and fire up them later when needed, instead of executing the search one by one 
+•	It is imperative to store those searching behaviour as business rules and fire up them later when needed, instead of executing searches one by one 
     upfront.
 
 •	Defining searching rules as chainable executables will help unify the way of both sync and async calling of action, and streamline the logic on previous 
